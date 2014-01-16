@@ -18,5 +18,6 @@ end
 put '/dof/:id' do
   #request.body.rewind
   #request.params.inspect
+  %x(./pololu.sh /dev/ttyACM0 #{params[:id]} #{params[:position]})
   "hi you moved %s to %s" % [params[:id], params[:position]]
 end
