@@ -1,6 +1,5 @@
+require 'rubygems'
 require 'sinatra'
-
-set :bind, '0.0.0.0'
 
 get '/hi' do
   "Hello from kran"
@@ -20,6 +19,8 @@ end
 put '/dof/:id' do
   #request.body.rewind
   #request.params.inspect
-  %x(./pololu.sh /dev/ttyACM0 #{params[:id]} #{params[:position]})
-  "hi you moved %s to %s" % [params[:id], params[:position]]
+  cmd ="./pololu.sh /dev/ttyACM0 #{params[:id]} #{params[:position]}"
+#  %x(./pololu.sh /dev/ttyACM0 #{params[:id]} #{params[:position]})
+  res = %x(#{cmd})
+  "hi you moved %s to %s (%s -> %s)" % [params[:id], params[:position], cmd, res]
 end
