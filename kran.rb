@@ -24,3 +24,10 @@ put '/dof/:id' do
   res = %x(#{cmd})
   "hi you moved %s to %s (%s -> %s)" % [params[:id], params[:position], cmd, res]
 end
+
+put '/grabber' do
+  scale_pos = params[:position].to_i * 70
+  cmd ="./pololu.sh /dev/ttyACM0 1 #{scale_pos}"
+  res = %x(#{cmd})
+  "Hi scale_pos is %s" % scale_pos 
+end
